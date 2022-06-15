@@ -21,22 +21,6 @@ export default {
       of: [{ type: 'figure' }],
     },
     {
-      name: 'form_get_form_url',
-      description: (
-        <>
-          Some text <a href='test'>some link</a>
-        </>
-      ),
-      type: 'string',
-      title: 'GET Form Elements URL',
-    },
-    {
-      name: 'actor',
-      title: 'Actor',
-      type: 'reference',
-      to: [{ type: 'person' }],
-    },
-    {
       name: 'movie',
       title: 'Movie',
       type: 'reference',

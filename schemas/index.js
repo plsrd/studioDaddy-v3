@@ -27,6 +27,7 @@ import localeBlockContent from './locale/BlockContent';
 import country from './documents/country';
 import contact from './objects/contact';
 import sandbox from './documents/sandbox';
+import allInputExamples from './documents/allInputExamples';
 
 export const schemaTypes = [
   category,
@@ -58,4 +59,5 @@ export const schemaTypes = [
   productVariant,
   country,
   sandbox,
+  allInputExamples,
 ];

@@ -15,6 +15,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'role',
+      title: 'Role',
+      type: 'string',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
