@@ -31,7 +31,6 @@ export default {
       options: {
         source: 'title',
         maxLength: 96,
-        isUnique: () => true,
       },
     },
     {
