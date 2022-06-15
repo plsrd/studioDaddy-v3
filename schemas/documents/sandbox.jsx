@@ -1,11 +1,8 @@
 import React from 'react';
-import Link from '../components/Link';
-import { studioClient } from '../../lib/utils/studioClient';
 
 export default {
   name: 'sandbox',
   type: 'document',
-  icon: () => <img src='../../static/a.jpg' />,
   groups: [
     { name: 'curr', title: 'Current' },
     { name: 'community', title: 'Community' },

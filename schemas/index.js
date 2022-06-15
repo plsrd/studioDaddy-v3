@@ -26,6 +26,7 @@ import localeText from './locale/Text';
 import localeBlockContent from './locale/BlockContent';
 import country from './documents/country';
 import contact from './objects/contact';
+import sandbox from './documents/sandbox';
 
 export const schemaTypes = [
   category,
@@ -56,4 +57,5 @@ export const schemaTypes = [
   localeString,
   productVariant,
   country,
+  sandbox,
 ];

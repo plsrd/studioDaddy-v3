@@ -1,5 +1,5 @@
 import { categories } from './categories';
-// import productsByVendor from './productsByVendor';
+import { productsByVendor } from './productsByVendor';
 
 import {
   MdStore,
@@ -22,8 +22,8 @@ export const ecommerceStructure = S =>
           S.documentTypeListItem('vendor')
             .title('Vendors')
             .icon(MdOutlinePortrait),
-          S.divider(),
-          // productsByVendor,
+          // S.divider(),
+          // productsByVendor(S),
           S.divider(),
           ...categories(S),
           S.divider(),
