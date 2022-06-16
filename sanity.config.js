@@ -1,92 +1,75 @@
 import { createConfig, createPlugin } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { schemaTypes } from './schemas';
-import { structure } from './desk/baseStructure';
-import { singleEdits } from './desk/singleEdits';
-import { MyTool } from './MyTool';
-
-import { MdOutlinePhotoLibrary } from 'react-icons/md';
-
+import { sandbox } from './desk/sandbox';
+import { blogDesk } from './desk/blogStructure';
 import { SetAndPublishAction } from './utils/document-actions/setAndPublishAction';
+import { ecommerceDesk } from './desk/ecommerceStructure';
+import { movieDesk } from './desk/movieStructure';
+import { portfolioDesk } from './desk/portfolioStructure';
+import { singleEdits } from './desk/singleEdits';
 
-const sharedConfig = createPlugin({
-  name: 'shareConfig',
-  tools: deskTool({ structure }),
-});
+import {
+  MdStore,
+  MdLibraryBooks,
+  MdOutlineBugReport,
+  MdMovieFilter,
+  MdOutlineViewQuilt,
+} from 'react-icons/md';
 
 export default createConfig([
   {
     name: 'default',
     title: 'studioDaddy',
-
     projectId: 'k8p6uw8a',
     dataset: 'development',
-    basePath: '/prod',
+    basePath: '/',
     plugins: [
       deskTool({
-        structure,
+        name: 'sandbox',
+        title: 'Sanbox',
+        icon: MdOutlineBugReport,
+        structure: sandbox,
+      }),
+      deskTool({
+        name: 'blog',
+        title: 'Blog',
+        icon: MdLibraryBooks,
+        structure: blogDesk,
+      }),
+      deskTool({
+        name: 'ecommerce',
+        title: 'Ecommerce',
+        icon: MdStore,
+        structure: ecommerceDesk,
+      }),
+      deskTool({
+        name: 'moviedb',
+        title: 'Movie DB',
+        icon: MdMovieFilter,
+        structure: movieDesk,
+      }),
+      deskTool({
+        name: 'portfolio',
+        title: 'Portfolio',
+        icon: MdOutlineViewQuilt,
+        structure: portfolioDesk,
       }),
     ],
-    tools: [
-      {
-        name: 'the-gay-tab',
-        title: 'Gay Tab',
-        component: MyTool,
-        icon: MdOutlinePhotoLibrary,
-      },
-    ],
-
+    tools: [],
     schema: {
       types: schemaTypes,
-      templates: [
-        {
-          id: 'personWithRole',
-          schemaType: 'person',
-          title: 'Person with Role',
-          parameters: [{ name: 'role', type: 'string' }],
-          value: ({ role }) => ({ role }),
-        },
-      ],
+      templates: [],
     },
     document: {
-      newDocumentOptions: (prev, context) => {
-        const roles = [
-          { name: 'developer', title: 'Developer' },
-          { name: 'designer', title: 'Designer' },
-          { name: 'admin', title: 'Administrator' },
-          { name: 'manager', title: 'Manager' },
-        ].map(roleExample => ({
-          id: 'personWithRole',
-          templateId: 'personWithRole',
-          type: 'initialValueTemplateItem',
-          title: roleExample.title,
-          parameters: { role: roleExample.name },
-        }));
-
-        return [
-          ...prev.filter(
-            document => !singleEdits.includes(document.templateId)
-          ),
-          ...roles,
-        ];
-      },
+      newDocumentOptions: (prev, context) =>
+        prev.filter(document => !singleEdits.includes(document.templateId)),
       actions: (prev, { schemaType }) => {
         if (singleEdits.includes(schemaType)) {
           return prev.filter(prevAction => prevAction.action == 'publish');
         }
         return [...prev, SetAndPublishAction];
       },
-    },
-  },
-  {
-    name: 'simpleDaddy',
-    title: 'simpleDaddy',
-    projectId: 'k8p6uw8a',
-    dataset: 'development',
-    basePath: '/simpleDaddy',
-    plugins: [deskTool()],
-    schema: {
-      types: schemaTypes,
     },
   },
 ]);

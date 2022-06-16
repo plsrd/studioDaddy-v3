@@ -1,6 +1,6 @@
 import { MdOutlinePhotoLibrary, MdOutlineImageSearch } from 'react-icons/md';
 
-export const categories = S => [
+export const categoryListItems = S => [
   S.documentTypeListItem('category')
     .title('Categories')
     .icon(MdOutlinePhotoLibrary),

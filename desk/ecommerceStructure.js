@@ -1,39 +1,31 @@
-import { categories } from './categories';
+import { categoryListItems } from './categoryListItems';
 import { productsByVendor } from './productsByVendor';
 
 import {
-  MdStore,
   MdShoppingBasket,
   MdOutlinePortrait,
   MdSettingsSuggest,
 } from 'react-icons/md';
 
-export const ecommerceStructure = S =>
+export const ecommerceListItems = (S, context) => [
+  S.documentTypeListItem('product').title('Products').icon(MdShoppingBasket),
+  S.documentTypeListItem('vendor').title('Vendors').icon(MdOutlinePortrait),
+  S.divider(),
+  productsByVendor(S, context),
+  S.divider(),
+  ...categoryListItems(S),
+  S.divider(),
   S.listItem()
-    .title('Ecommerce Example')
-    .icon(MdStore)
+    .title('Site Settings')
+    .icon(MdSettingsSuggest)
     .child(
-      S.list()
-        .title('Ecommerce Example')
-        .items([
-          S.documentTypeListItem('product')
-            .title('Products')
-            .icon(MdShoppingBasket),
-          S.documentTypeListItem('vendor')
-            .title('Vendors')
-            .icon(MdOutlinePortrait),
-          // S.divider(),
-          // productsByVendor(S),
-          S.divider(),
-          ...categories(S),
-          S.divider(),
-          S.listItem()
-            .title('Site Settings')
-            .icon(MdSettingsSuggest)
-            .child(
-              S.document()
-                .schemaType('siteSettings')
-                .documentId('ecommerceSiteSettings')
-            ),
-        ])
-    );
+      S.document()
+        .schemaType('siteSettings')
+        .documentId('ecommerceSiteSettings')
+    ),
+];
+
+export const ecommerceDesk = (S, context) =>
+  S.list()
+    .title('Ecommerce')
+    .items([...ecommerceListItems(S, context)]);

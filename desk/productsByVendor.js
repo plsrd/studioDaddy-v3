@@ -1,23 +1,29 @@
-export const productsByVendor = S =>
+import { map } from 'rxjs/operators';
+
+import { MdStore } from 'react-icons/md';
+
+export const productsByVendor = (S, { client }) =>
   S.listItem()
     .title('Products by Vendor')
-    .child(() => {
-      // const vendors = await studioClient
-      //   .fetch(`*[_type == 'product' && vendor_ != null].vendor_`)
-      //   .then((allVendors) => [...new Set(allVendors)]);
-      // console.log(vendors);
-      // return S.list()
-      //   .title('Products by Vendor')
-      //   .items([
-      //     ...vendors.map((vendor) =>
-      //       S.listItem()
-      //         .title(vendor)
-      //         .child(
-      //           S.documentList()
-      //             .title(vendor)
-      //             .filter('_type == "product" && vendor_ == $vendor')
-      //             .params({ vendor })
-      //         )
-      //     ),
-      //   ]);
-    });
+    .icon(MdStore)
+    .child(async () =>
+      client
+        .fetch(`*[_type == 'product' && defined(vendor_)].vendor_`)
+        .then(vendors => [...new Set(vendors)])
+        .then(vendors =>
+          S.list()
+            .title('Products by Vendor')
+            .items([
+              ...vendors.map(vendor =>
+                S.listItem()
+                  .title(vendor)
+                  .child(
+                    S.documentList()
+                      .title(vendor)
+                      .filter('_type == "product" && vendor_ == $vendor')
+                      .params({ vendor })
+                  )
+              ),
+            ])
+        )
+    );
