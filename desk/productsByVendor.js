@@ -1,5 +1,3 @@
-import { map } from 'rxjs/operators';
-
 import { MdStore } from 'react-icons/md';
 
 export const productsByVendor = (S, { client }) =>

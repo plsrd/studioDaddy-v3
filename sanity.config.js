@@ -1,4 +1,4 @@
-import { createConfig, createPlugin } from 'sanity';
+import { createConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { schemaTypes } from './schemas';
 import { sandbox } from './desk/sandbox';
@@ -68,7 +68,7 @@ export default createConfig([
         if (singleEdits.includes(schemaType)) {
           return prev.filter(prevAction => prevAction.action == 'publish');
         }
-        return [...prev, SetAndPublishAction];
+        return prev;
       },
     },
   },
